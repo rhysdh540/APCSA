@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-class Main {
+class Necklace {
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
     System.out.println("\033[2J\033[H\033[1;4;32mNECKLACE PROBLEM:\n\033[0mInput number 1:");
@@ -38,17 +38,15 @@ class Main {
     
     sc.close();
     System.out.println();
-    ArrayList<Integer> nums = new ArrayList<Integer>();
+    ArrayList<Integer> nums = new ArrayList<>();
     nums.add(num1);
     nums.add(num2);
     nums.add((num1+num2)%10);
     
     while((nums.get(nums.size()-2)!=num1) || (nums.get(nums.size()-1)!=num2))
       nums.add((nums.get(nums.size()-2)+nums.get(nums.size()-1))%10);
-    
-    for(int i = 0; i < nums.size(); i++)
-      System.out.print(nums.get(i) + " ");
-    
+
+    nums.forEach(n -> System.out.print(n + " "));
     System.out.println("\b, and it took " + (nums.size()-2) + " steps");
   }
 }
