@@ -4,7 +4,7 @@ import java.util.ArrayList;
 class Necklace {
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
-    System.out.println("\033[2J\033[H\033[1;4;32mNECKLACE PROBLEM:\n\033[0mInput number 1:");
+    System.out.print("\033[2J\033[H\033[1;4;32mNECKLACE PROBLEM:\n\033[0mInput number 1: ");
 
     int num1=-1, num2=-1;
     String str1="", str2="";
@@ -17,21 +17,21 @@ class Necklace {
           throw new java.util.InputMismatchException("amogus");
       }
       catch(Exception e){
-        System.out.println("\n\033[31mPlease enter a valid number!\033[0m\n" + str1 + " is not a number between 0 and 9\n\nInput number 1:");
+        System.out.print("\n\033[31mPlease enter a valid number!\033[0m\n" + str1 + " is not a number between 0 and 9\n\nInput number 1: ");
         sc = new Scanner(System.in);
       }
     }
     
     while(!(num2>-1&&num2<10)){
       try{
-        System.out.println("\nInput number 2:");
+        System.out.print("\nInput number 2: ");
         str2 = sc.nextLine();
         num2 = Integer.parseInt(str2);
         if(num2>9||num2<0)
           throw new java.util.InputMismatchException();
       }
       catch(Exception e){
-        System.out.println("\n\033[31mPlease enter a valid number!\033[0m\n" + str2 + " is not a number between 0 and 9");
+        System.out.print("\n\033[31mPlease enter a valid number!\033[0m\n" + str2 + " is not a number between 0 and 9");
         sc = new Scanner(System.in);
       }
     }
