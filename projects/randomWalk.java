@@ -11,7 +11,7 @@ class RandomWalk {
     while(tests==-1){
       try{
         placeholder = sc.nextLine();
-        tests = Integer.parseInt(placeholder);
+        tests = parseInputNum(placeholder);
         if(tests<1)
           throw new Exception();
       }catch(Exception e){
@@ -59,5 +59,16 @@ class RandomWalk {
       steps++;
     }
     return steps;
+  }
+  static int parseInputNum(String str){
+    String number = str.substring(0,str.length()-1);
+    int num = Integer.parseInt(number);
+    if(str.endsWith("k"))
+      return num*1000;
+    if(str.endsWith("m"))
+      return num*1000000;
+    if(str.endsWith("b"))
+      return num*1000000000;
+    return num;
   }
 }
