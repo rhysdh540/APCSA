@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Formatter;
 class RandomWalk {
   public static void main(String[] args) {
     System.out.println("\033[?25l\033[2J\033[H\033[34;1;4mRandom Walk Program\n\033[0m");
@@ -39,8 +40,10 @@ class RandomWalk {
     timePassed -=mins*60;
     String plural = (mins==1) ? "" : "s";
     String minDisplay = (mins==0) ? "" : mins + " minute" + plural + " and ";
+    Formatter f = new Formatter();
+    f.format("%,d", tests);
     
-    System.out.println("\n\033[1;35mTests Complete\n\033[0m\nTook " + minDisplay + timePassed + " seconds.\nResults:\n\n" + tests + " tests run.\nThe average number of steps taken was "
+    System.out.println("\n\033[1;35mTests Complete\n\033[0m\nTook " + minDisplay + timePassed + " seconds.\nResults:\n\n" + f + " tests run.\nThe average number of steps taken was "
     + (Math.round(avg*10000)/10000.0) + ".\nThe greatest number of steps taken in a single test was " + greatest + ".\033[?25h");
   }
 
