@@ -27,12 +27,11 @@ class RandomWalk {
     /* logic */
     double avg = 0.0;
     int greatest = 0, j;
-    for(int i = 0; i < tests; i++){
+    for(int i = 0; i < tests; i++) {
       j = walk();
-      if(j>greatest) greatest = j;
+      if (j > greatest) greatest = j;
       avg += j;
-    }
-    avg /= tests;
+    }avg /= tests;
 
     /* timer end */
     double timePassed = (System.nanoTime()-startTime)/1000000000.0; // the divide changes nanoseconds to seconds
