@@ -15,26 +15,26 @@ class RandomWalk {
         if(tests<1)
           throw new Exception();
       }catch(Exception e){
-        System.out.print("\033[31mAn error occured.\n\033[0m\"" + placeholder + "\" is invalid!\nHow many tests would you like to run?");
+        System.out.print("\033[31mAn error occured.\n\033[0m\"" + placeholder + "\" is invalid!\nHow many tests would you like to run? ");
         tests = -1;
         sc = new Scanner(System.in);
       }
     }
     System.out.println("\033[2J\033[H\033[34;1;4mRandom Walk Program\n\033[0m\nRunning tests...");
-    /* this line creates a timer to show later how long running the tests took */
-    long startTime = System.nanoTime();
 
     /* logic */
     double avg = 0.0;
     int greatest = 0, j;
+    /* this line creates a timer to show later how long running the tests took */
+    long startTime = System.nanoTime();
     for(int i = 0; i < tests; i++) {
       j = walk();
       if (j > greatest) greatest = j;
       avg += j;
-    }avg /= tests;
-
+    }
     /* timer end */
     double timePassed = (System.nanoTime()-startTime)/1000000000.0; // the divide changes nanoseconds to seconds
+    avg /= tests;
 
     /* variables to display on the print */
     int mins = (int)timePassed/60;
@@ -45,7 +45,7 @@ class RandomWalk {
     f.format("%,d", tests);
     
     System.out.print("\033[1;35mTests Complete\n\033[0mTook " + minDisplay + timePassed + " seconds.\nResults:\n\n" + f + " tests run.\nTests averaged "
-    + (Math.round(avg*10000)/10000.0) + " steps per run.\nThe greatest number of steps taken in a single test was " + greatest + ".\033[?25h");
+    + (Math.round(avg*10000)/10000.0) + " steps per run.\nThe greatest number of steps taken in a single test was " + greatest + ".\033[?25h\n\n");
   }
 
   /* just a seperate method to run 1 walk */
