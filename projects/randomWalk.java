@@ -36,6 +36,8 @@ class RandomWalk {
 
     /* timer end */
     double timePassed = (System.nanoTime()-startTime)/1000000000.0; // the divide changes nanoseconds to seconds
+
+    /* variables to display on the print */
     int mins = (int)timePassed/60;
     timePassed -=mins*60;
     String plural = (mins==1) ? "" : "s";
@@ -43,8 +45,8 @@ class RandomWalk {
     Formatter f = new Formatter();
     f.format("%,d", tests);
     
-    System.out.println("\n\033[1;35mTests Complete\n\033[0m\nTook " + minDisplay + timePassed + " seconds.\nResults:\n\n" + f + " tests run.\nThe average number of steps taken was "
-    + (Math.round(avg*10000)/10000.0) + ".\nThe greatest number of steps taken in a single test was " + greatest + ".\033[?25h");
+    System.out.print("\033[1;35mTests Complete\n\033[0mTook " + minDisplay + timePassed + " seconds.\nResults:\n\n" + f + " tests run.\nTests averaged "
+    + (Math.round(avg*10000)/10000.0) + " steps per run.\nThe greatest number of steps taken in a single test was " + greatest + ".\033[?25h");
   }
 
   /* just a seperate method to run 1 walk */
