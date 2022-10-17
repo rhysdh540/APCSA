@@ -1,6 +1,6 @@
 import java.util.Scanner;
 import java.util.Formatter;
-class RandomWalk {
+class randomWalk {
   public static void main(String[] args) {
     System.out.println("\033[?25l\033[2J\033[H\033[34;1;4mRandom Walk Program\n\033[0m");
     Scanner sc = new Scanner(System.in);
@@ -20,6 +20,7 @@ class RandomWalk {
         sc = new Scanner(System.in);
       }
     }
+    tests*=10;
     System.out.println("\033[2J\033[H\033[34;1;4mRandom Walk Program\n\033[0m\nRunning tests...");
 
     /* logic */
