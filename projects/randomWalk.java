@@ -65,11 +65,11 @@ class randomWalk {
     String number = str.substring(0,str.length()-1);
     int num = Integer.parseInt(number);
     if(str.endsWith("k"))
-      return num*1000;
+      return num*100;
     if(str.endsWith("m"))
-      return num*1000000;
+      return num*100000;
     if(str.endsWith("b"))
-      return num*1000000000;
+      return num*100000000;
     return num;
   }
 }
