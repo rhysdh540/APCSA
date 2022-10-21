@@ -5,7 +5,7 @@ class randomWalk {
     System.out.println("\033[?25l\033[2J\033[H\033[34;1;4mRandom Walk Program\n\033[0m");
     Scanner sc = new Scanner(System.in);
     System.out.print("How many tests would you like to run? \033[?25h");
-    int tests=-1;
+    long tests=-1;
     String placeholder = "";
     /* error handling yay */
     while(tests==-1){
@@ -20,7 +20,6 @@ class randomWalk {
         sc = new Scanner(System.in);
       }
     }
-    tests*=10;
     System.out.println("\033[2J\033[H\033[34;1;4mRandom Walk Program\n\033[0m\nRunning tests...");
 
     /* logic */
@@ -61,15 +60,14 @@ class randomWalk {
     }
     return steps;
   }
-  static int parseInputNum(String str){
-    String number = str.substring(0,str.length()-1);
-    int num = Integer.parseInt(number);
+  static long parseInputNum(String str){
+    long num = Long.parseLong(str.substring(0,str.length()-1));
     if(str.endsWith("k"))
       return num*100;
     if(str.endsWith("m"))
       return num*100000;
     if(str.endsWith("b"))
       return num*100000000;
-    return num;
+    return Long.parseLong(str);
   }
 }
