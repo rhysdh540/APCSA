@@ -2,7 +2,7 @@
 import java.util.Scanner;
 
 class calculator {
-    public static void main(String[] args) {
+    public static void run() {
         String exp = "", operator = "", operand1 = "", operand2 = "";
         while (exp.equals("")) {
             Scanner inp = new Scanner(System.in);

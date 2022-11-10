@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 class necklaceProblem {
-    public static void main(String[] args) {
+    public static void run() {
         Scanner sc = new Scanner(System.in);
         System.out.print("\033[2J\033[H\033[1;4;32mNECKLACE PROBLEM:\n\033[0mInput number 1: ");
 

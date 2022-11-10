@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.Formatter;
 class randomWalk {
-  public static void main(String[] args) {
+  public static void run() {
     System.out.println("\033[?25l\033[2J\033[H\033[34;1;4mRandom Walk Program\n\033[0m");
     Scanner sc = new Scanner(System.in);
     System.out.print("How many tests would you like to run? \033[?25h");
