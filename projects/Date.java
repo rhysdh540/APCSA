@@ -1,3 +1,5 @@
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  */
@@ -38,7 +40,7 @@ public class Date { // ok so i didn't realize that there was already a Date clas
         day = newDay;
         month = newMonth;
         year = newYear;
-        system = true;
+        system = false;
         fixOverflow();
     }
 
@@ -47,7 +49,7 @@ public class Date { // ok so i didn't realize that there was already a Date clas
      * @param date a String in the format DD/MM/YYYY or MM/DD/YYYY.
      * @param useAmericanDate whether to use DD/MM/YYYY (false) or MM/DD/YYYY (true).
      */
-    public Date(String date, boolean useAmericanDate){
+    public Date(@NotNull String date, boolean useAmericanDate){
         system = useAmericanDate;
         int a = Integer.parseInt(date.substring(date.indexOf("/")+1,date.lastIndexOf("/")));
         int b = Integer.parseInt(date.substring(0,date.indexOf("/")));
@@ -56,17 +58,16 @@ public class Date { // ok so i didn't realize that there was already a Date clas
         year = Integer.parseInt(date.substring(date.lastIndexOf("/")+1, date.length()));
         fixOverflow();
     }
+
     /**
-     * Creates a new Date object with the same fields as the input Date,
-     * essentially cloning it.
-     * @param d the Date to clone.
+     * Creates a new Date object using the specified Date.
+     * @param date the Date to copy.
      */
-    public Date(Date d) {
-        day = d.getDay();
-        month = d.getMonth();
-        year = d.getYear();
-        system = d.getSystem();
-        fixOverflow();
+    public Date(Date date){
+        day = date.getDay();
+        month = date.getMonth();
+        year = date.getYear();
+        system = date.getSystem();
     }
 
     /* GETTERS AND SETTERS */
@@ -100,7 +101,7 @@ public class Date { // ok so i didn't realize that there was already a Date clas
     public void toggleSystem() {system = !system;}
 
     /**
-     * Calls {@link #thing} twice.
+     * Calls {@link #thing} twice so it works properly.
      */
     public void fixOverflow(){
         thing();
@@ -163,7 +164,7 @@ public class Date { // ok so i didn't realize that there was already a Date clas
      * @see <a href="https://www.timeanddate.com/date/dateadd.html">Date Calculator</a>
      */
     public static Date advancedDate(Date d, int days, int months, int years) {
-        Date c = new Date(d);
+        Date c = d;
         c.advance(days, months, years);
         return c;
     }
