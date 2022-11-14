@@ -3,6 +3,13 @@ import java.util.Formatter;
 class randomWalk {
   public static void run() {
     System.out.println("\033[?25l\033[2J\033[H\033[34;1;4mRandom Walk Program\n\033[0m");
+    /* this is a lot to take in, but it's just a bunch of formatting
+     * the \033[?25l hides the cursor
+     * the \033[2J clears the screen
+     * the \033[H moves the cursor to the top left
+     * the \033[34;1;4m sets the color to blue, makes it bold, and underlines it
+     * the \033[0m resets the formatting
+     */
     Scanner sc = new Scanner(System.in);
     System.out.print("How many tests would you like to run? \033[?25h");
     long tests=-1;
@@ -61,13 +68,15 @@ class randomWalk {
     return steps;
   }
   static long parseInputNum(String str){
+    if(str.length()==1)
+      return Long.parseLong(str);
     long num = Long.parseLong(str.substring(0,str.length()-1));
     if(str.endsWith("k"))
-      return num*100;
+      return num*1000;
     if(str.endsWith("m"))
-      return num*100000;
+      return num*1000000;
     if(str.endsWith("b"))
-      return num*100000000;
+      return num*1000000000;
     return Long.parseLong(str);
   }
 }
