@@ -50,6 +50,8 @@ public class Date { // ok so i didn't realize that there was already a Date clas
      * @param useAmericanDate whether to use DD/MM/YYYY (false) or MM/DD/YYYY (true).
      */
     public Date(@NotNull String date, boolean useAmericanDate){
+        if(date.indexOf('/') == date.lastIndexOf('/'))
+            throw new IllegalArgumentException("The date must be in the format DD/MM/YYYY or MM/DD/YYYY.");
         system = useAmericanDate;
         int a = Integer.parseInt(date.substring(date.indexOf("/")+1,date.lastIndexOf("/")));
         int b = Integer.parseInt(date.substring(0,date.indexOf("/")));
@@ -164,7 +166,7 @@ public class Date { // ok so i didn't realize that there was already a Date clas
      * @see <a href="https://www.timeanddate.com/date/dateadd.html">Date Calculator</a>
      */
     public static Date advancedDate(Date d, int days, int months, int years) {
-        Date c = d;
+        Date c = new Date(d);
         c.advance(days, months, years);
         return c;
     }
