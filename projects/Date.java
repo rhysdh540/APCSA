@@ -1,21 +1,26 @@
 import org.jetbrains.annotations.NotNull;
 
 /**
- *
+ * ok so i didn't realize that there was already a Date class but i don't want to delete all this so yep here we go
+ * also very javadocced (is that a word?)
+ * i recommend viewing this using an ide/code editor that renders javadoc inline (like intellij)
  */
-public class Date { // ok so i didn't realize that there was already a Date class but i don't want to delete all this so yep here we go
+public class Date {
     /**
      * The day of the month in the date.
      */
     private int day;
+
     /**
      * The month of the year in the date, represented by 1-12 meaning January to December.
      */
     private int month;
+
     /**
      * What year the Date is in.
      */
     private int year;
+
     /**
      * Used when converting the Date to a String, tells whether to use DD/MM/YYYY (false) or MM/DD/YYYY (true).
      */
@@ -36,12 +41,21 @@ public class Date { // ok so i didn't realize that there was already a Date clas
      * @param newMonth the month for the new Date.
      * @param newYear the year for the new Date.
      */
-    public Date(int newDay, int newMonth, int newYear) {
+    public Date(int newDay, int newMonth, int newYear, boolean newSystem) {
         day = newDay;
         month = newMonth;
         year = newYear;
-        system = false;
+        system = newSystem;
         fixOverflow();
+    }
+    /**
+     * Creates a new Date object with the specified values:
+     * @param newDay the day for the new Date.
+     * @param newMonth the month for the new Date.
+     * @param newYear the year for the new Date.
+     */
+    public Date(int newDay, int newMonth, int newYear) {
+        this(newDay, newMonth, newYear, true);
     }
 
     /**
@@ -62,10 +76,18 @@ public class Date { // ok so i didn't realize that there was already a Date clas
     }
 
     /**
+     * Creates a new Date object using the specified String.
+     * @param date a String in the format MM/DD/YYYY.
+     */
+    public Date(@NotNull String date){
+        this(date, true);
+    }
+
+    /**
      * Creates a new Date object using the specified Date.
      * @param date the Date to copy.
      */
-    public Date(Date date){
+    public Date(@NotNull Date date){
         day = date.getDay();
         month = date.getMonth();
         year = date.getYear();
@@ -75,6 +97,13 @@ public class Date { // ok so i didn't realize that there was already a Date clas
     /* GETTERS AND SETTERS */
     public int getDay() {return day;}
     public int getMonth() {return month;}
+    public int getYear() {return year;}
+    public boolean getSystem() {return system;}
+    public void setDay(int newDay) {day = newDay;}
+    public void setMonth(int newMonth) {month = newMonth;}
+    public void setYear(int newYear) {year = newYear;}
+    public void setSystem(boolean newSystem) {system = newSystem;}
+    public void toggleSystem() {system = !system;}
     public String getMonthAsString(){
         return switch (month){
             case 1 -> "January";
@@ -92,54 +121,38 @@ public class Date { // ok so i didn't realize that there was already a Date clas
             default -> "ERROR";
         };
     }
-    public int getYear() {return year;}
-    public boolean getSystem() {return system;}
-    public void setDay(int newDay) {day = newDay;}
-    public void setMonth(int newMonth) {month = newMonth;}
-    public void setYear(int newYear) {year = newYear;}
     /**
-     * Switches between MM/DD/YYYY and DD/MM/YYYY systems.
-     */
-    public void toggleSystem() {system = !system;}
-
-    /**
-     * Calls {@link #thing} twice so it works properly.
+     * Fixes the day and month if they are out of bounds.
      */
     public void fixOverflow(){
-        thing();
-        thing();
-    }
-    /**
-     * Checks if the Date is valid, and if not, fixes it.
-     */
-    private void thing() { // very creative and descriptive method name
-
-        while(day > 31 &&(month==1||month==3||month==5||month==7||month==8||month==10||month==12)){
-            month += day/31;
-            day %=31;
-        }while(day > 30 && (month==4||month==6||month==9||month==11)){
-            month += day/30;
-            day %=30;
-        }while(day>28&&month==2){
-            month += day/28;
-            day %=28;
-        }
-        while(month>12){
-            year += month/12;
-            month %= 12;
-        }
-        while(day < 1){
-            if(month==2||month==4||month==6||month==8||month==9||month==11||month==1)
-                day += 31;
-            if(month==5||month==7||month==10||month==12)
-                day += 30;
-            if(month==3)
-                day+=28;
-            month--;
-        }
-        while(month<1){
-            month+=12;
-            year--;
+        for(int i : new int[2]){
+            while(day > 31 &&(month==1||month==3||month==5||month==7||month==8||month==10||month==12)){
+                month += day/31;
+                day %=31;
+            }while(day > 30 && (month==4||month==6||month==9||month==11)){
+                month += day/30;
+                day %=30;
+            }while(day>28&&month==2){
+                month += day/28;
+                day %=28;
+            }
+            while(month>12){
+                year += month/12;
+                month %= 12;
+            }
+            while(day < 1){
+                if(month==2||month==4||month==6||month==8||month==9||month==11||month==1)
+                    day += 31;
+                if(month==5||month==7||month==10||month==12)
+                    day += 30;
+                if(month==3)
+                    day+=28;
+                month--;
+            }
+            while(month<1){
+                month+=12;
+                year--;
+            }
         }
     }
     /**
@@ -165,20 +178,46 @@ public class Date { // ok so i didn't realize that there was already a Date clas
      * @return the advanced date.
      * @see <a href="https://www.timeanddate.com/date/dateadd.html">Date Calculator</a>
      */
-    public static Date advancedDate(Date d, int days, int months, int years) {
+    public static @NotNull Date advancedDate(Date d, int days, int months, int years) {
         Date c = new Date(d);
         c.advance(days, months, years);
         return c;
     }
 
     /**
-     * Changes the Date to a String, for printing or something idk.
+     * Changes the Date to a String.
      * @return the String version of the date
      */
     public String toString() {
-        return (system) ? (month + "/" + day + "/" + year/* + " (mm/dd/yyyy)"*/) : (day + "/" + month + "/" + year/* + " (dd/mm/yyyy)"*/);
+        return system ? month + "/" + day + "/" + year/* + " (mm/dd/yyyy)"*/ : day + "/" + month + "/" + year/* + " (dd/mm/yyyy)"*/;
     }
 
+    /**
+     * Checks if the Date is equal to another Date. (systems not checked)
+     * @param d the Date to compare to.
+     * @return whether the Dates are equal.
+     */
+    public boolean equals(@NotNull Date d) {
+        return day == d.getDay() && month == d.getMonth() && year == d.getYear();
+    }
+    /**
+     * Checks if the Date is equal to another String-based date.
+     * @param d the Date to compare to.
+     * @param useAmericanDate whether to use DD/MM/YYYY (false) or MM/DD/YYYY (true).
+     * @return whether the Dates are equal.
+     */
+    public boolean equals(@NotNull String d, boolean useAmericanDate) {
+        return equals(new Date(d, useAmericanDate));
+    }
+
+    /**
+     * Returns if the Date is after another Date.
+     * @param d the Date to compare to.
+     * @return whether the Date is after the other Date.
+     */
+    public boolean isAfter(@NotNull Date d) {
+        return year > d.getYear() || (year == d.getYear() && month > d.getMonth()) || (year == d.getYear() && month == d.getMonth() && day > d.getDay());
+    }
     /**
      * Finds the day of the week that the Date is on using complex logical witchery.
      * @return the day of the week that the Date is on, as a String. (Sunday-Saturday)
