@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -9,7 +10,7 @@ class necklaceProblem {
         int num1=-1, num2=-1;
         String str1="", str2="";
 
-        while(!(num1>-1&&num1<10)){
+        while(!(num1 >-1&& num1<10)){
             try{
                 str1 = sc.nextLine();
                 num1 = Integer.parseInt(str1);
@@ -17,12 +18,12 @@ class necklaceProblem {
                     throw new java.util.InputMismatchException("amogus");
             }
             catch(Exception e){
-                System.out.print("\n\033[31mPlease enter a valid number!\033[0m\n" + str1 + " is not a number between 0 and 9\n\nInput number 1: ");
+                System.out.print("\n\033[31mPlease enter a valid number!\033[0m\n\"" + str1 + "\" is not a number between 0 and 9\n\nInput number 1: ");
                 sc = new Scanner(System.in);
             }
         }
 
-        while(!(num2>-1&&num2<10)){
+        while(!(num2>-1 && num2<10)){
             try{
                 System.out.print("\nInput number 2: ");
                 str2 = sc.nextLine();
@@ -31,17 +32,14 @@ class necklaceProblem {
                     throw new java.util.InputMismatchException();
             }
             catch(Exception e){
-                System.out.print("\n\033[31mPlease enter a valid number!\033[0m\n" + str2 + " is not a number between 0 and 9");
+                System.out.print("\n\033[31mPlease enter a valid number!\033[0m\n\"" + str2 + "\" is not a number between 0 and 9");
                 sc = new Scanner(System.in);
             }
         }
 
         sc.close();
         System.out.println();
-        ArrayList<Integer> nums = new ArrayList<>();
-        nums.add(num1);
-        nums.add(num2);
-        nums.add((num1+num2)%10);
+        ArrayList<Integer> nums = new ArrayList<>(List.of(num1, num2, (num1+num2)%10));
 
         while((nums.get(nums.size()-2)!=num1) || (nums.get(nums.size()-1)!=num2))
             nums.add((nums.get(nums.size()-2)+nums.get(nums.size()-1))%10);

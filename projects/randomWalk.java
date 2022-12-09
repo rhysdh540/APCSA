@@ -55,7 +55,7 @@ class randomWalk {
     + (Math.round(avg*10000)/10000.0) + " steps per run.\nThe greatest number of steps taken in a single test was " + greatest + ".\033[?25h\n\n");
   }
 
-  /* just a seperate method to run 1 walk */
+  /* just a separate method to run 1 walk */
   static int walk() {
     int pos = 3;
     int steps = 0;
@@ -67,7 +67,7 @@ class randomWalk {
     }
     return steps;
   }
-  static long parseInputNum(String str){
+  static long parseInputNum(String str){ // todo: make this work with decimals
     if(str.length()==1)
       return Long.parseLong(str);
     long num = Long.parseLong(str.substring(0,str.length()-1));

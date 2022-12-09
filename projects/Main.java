@@ -1,5 +1,4 @@
 import java.io.PrintStream;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -9,6 +8,6 @@ public class Main {
     static PrintStream so = System.out;
     static Scanner sc = new Scanner(System.in);
     public static void main(String[] amogus) {
-        so.println("\033[2J\033[H"); // clear screen;
+        Emails.sendEmail("davis_clarke@ryecountryday.org", "rhys_dehaan@ryecountryday.org", SECRETDONOTCOMMITTOGITHUB.SCHOOL_PASSWORD, "hi davis", "hi davis");
     }
 }

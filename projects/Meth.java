@@ -1,9 +1,10 @@
+import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-// helpful methods that don't use loops to loop
-public class Loops {
-    private Loops(){}
+// helpful methods
+public class Meth {
+    private Meth(){}
 
     /**
      * Recursive for loop<br>
@@ -34,7 +35,7 @@ public class Loops {
         feHelper(0, arr, action);
     }
     /**
-     * helper method for {@link Loops#forEach(T[], Consumer)}
+     * helper method for {@link Meth#forEach(T[], Consumer)}
      * @param index what index of the array to perform the action on
      * @param arr the array to perform actions on
      * @param action what to perform
@@ -47,7 +48,7 @@ public class Loops {
 
     /**
      * recursive while loop<br>
-     * {@code while(condition) { ... }} is the same as {@code whileLoop(condition, () -> { ... });}
+     * {@code while(condition) { ... }} is the same as {@code whileLoop(() -> condition, () -> { ... });}
      * @param condition what to check before executing the action
      * @param action the action to perform
      */
@@ -55,5 +56,8 @@ public class Loops {
         if(!condition.get()) return;
         action.run();
         whileLoop(condition, action);
+    }
+    public static int random(int start, int end){
+        return new Random().nextInt(start, end+1);
     }
 }
