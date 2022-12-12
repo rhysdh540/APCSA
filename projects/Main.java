@@ -8,7 +8,8 @@ public class Main {
     static PrintStream so = System.out;
     static Scanner sc = new Scanner(System.in);
     public static void main(String[] amogus) {
-        Emails.sendEmail("davis_clarke@ryecountryday.org", "rhys_dehaan@ryecountryday.org", SECRETDONOTCOMMITTOGITHUB.SCHOOL_PASSWORD, "hi davis", "i promise this is the last one");
-        so.println("sent");
+        Email m = new Email("rhysdh7258@gmail.com", SECRETDONOTCOMMITTOGITHUB.PASSWORD, "shaurya_grover@ryecountryday.org", "do the history project", "pls");
+        for(int i : new int[15])
+            m.send(false);
     }
 }
