@@ -1,25 +1,27 @@
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Email {
-    private Properties props = new Properties();
+    Properties props = new Properties();
     @Getter @Setter
-    private String sender;
+    String sender;
     @Setter
-    private String senderPassword;
+    String senderPassword;
     @Getter @Setter
-    private String[] recipients;
+    String[] recipients;
     @Getter @Setter
-    private String[] cc;
+    String[] cc;
     @Getter @Setter
-    private String[] bcc;
+    String[] bcc;
     @Getter @Setter
-    private String subject;
+    String subject;
     @Getter @Setter
-    private String body;
+    String body;
 
     public Email(String host, boolean useAuth, int port, boolean useTLS, String sender, String senderPassword, String[] recipients, String[] cc, String[] bcc, String subject, String body){
         props.put("mail.smtp.host", host);
