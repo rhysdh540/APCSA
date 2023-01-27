@@ -1,8 +1,11 @@
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 // helpful methods
+@SuppressWarnings("unused")
 public class Meth {
     private Meth(){}
 
@@ -14,7 +17,7 @@ public class Meth {
      * @param step how much to increment every time
      * @param action what code to execute
      */
-    public static void forLoop(int start, int end, int step, Consumer<Integer> action) {
+    public static void forLoop(int start, int end, int step, @NotNull Consumer<Integer> action) {
         // base cases
         if(step == 0) throw new IllegalArgumentException("you made step 0 lol");
         if(step>0) {
@@ -31,7 +34,7 @@ public class Meth {
      * @param arr the array to perform actions on
      * @param action what to perform
      */
-    public static <T> void forEach(T[] arr, Consumer<T> action) {
+    public static <T> void forEach(@NotNull T[] arr, @NotNull Consumer<T> action) {
         feHelper(0, arr, action);
     }
     /**
@@ -48,6 +51,7 @@ public class Meth {
 
     /**
      * recursive while loop<br>
+     * Not recommended for infinite loops (will throw a {@code StackOverflowException})<br>
      * {@code while(condition) { ... }} is the same as {@code whileLoop(() -> condition, () -> { ... });}
      * @param condition what to check before executing the action
      * @param action the action to perform

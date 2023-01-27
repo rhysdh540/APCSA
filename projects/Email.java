@@ -5,7 +5,7 @@ import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE) @SuppressWarnings({"unused", "FieldMayBeFinal"})
 public class Email {
     Properties props = new Properties();
     @Getter @Setter
@@ -53,22 +53,18 @@ public class Email {
     }
 
     public void addRecipient(String recipient){
-        String[] newRecipients = new String[recipients.length + 1];
-        System.arraycopy(recipients, 0, newRecipients, 0, recipients.length);
-        newRecipients[recipients.length] = recipient;
-        recipients = newRecipients;
+        recipients = arrayAdd(recipients, recipient);
     }
     public void addCC(String recipient){
-        String[] newCC = new String[cc.length + 1];
-        System.arraycopy(cc, 0, newCC, 0, cc.length);
-        newCC[cc.length] = recipient;
-        cc = newCC;
+        cc = arrayAdd(cc, recipient);
     }
     public void addBCC(String recipient){
-        String[] newBCC = new String[bcc.length + 1];
-        System.arraycopy(bcc, 0, newBCC, 0, bcc.length);
-        newBCC[bcc.length] = recipient;
-        bcc = newBCC;
+        bcc = arrayAdd(bcc, recipient);
+    }
+    public static <T> T[] arrayAdd(T[] arr, T toAdd) {
+        T[] newArr = java.util.Arrays.copyOf(arr, arr.length + 1);
+        newArr[arr.length] = toAdd;
+        return newArr;
     }
 
     public void print(){

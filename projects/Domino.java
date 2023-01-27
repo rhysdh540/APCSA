@@ -1,3 +1,4 @@
+@SuppressWarnings("unused")
 public class Domino {
     /* FIELDS */
     private int top, bottom;
@@ -43,7 +44,7 @@ public class Domino {
     public String toString(){
         return "[" + top + "|" + bottom + "]";
     }
-    public String toStringFancy(){
+    public String toStringFancy() {
         switch(top){
             case 0 -> {
                 return switch (bottom) {

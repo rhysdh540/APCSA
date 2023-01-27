@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+@SuppressWarnings("unused")
 public class DominoPile {
     private ArrayList<Domino> pile = new ArrayList<>();
     public DominoPile(){}
@@ -8,9 +9,8 @@ public class DominoPile {
         for(int i = 0; i < 7; i++){
             for(int j = 0; j < 7; j++){
                 Domino test = new Domino(i,j);
-                if(pile.contains(test) || pile.contains(test.flip()))
-                    continue;
-                pile.add(test.flip());
+                if(!pile.contains(test) && !pile.contains(test.flip()))
+                    pile.add(test.flip());
             }
         }
     }
@@ -33,7 +33,11 @@ public class DominoPile {
         return this;
     }
     public DominoPile remove(Domino target) {
-        pile.removeIf(d -> d.getTop() == target.getTop() && d.getBottom() == target.getBottom());
+        for(Domino d : pile)
+            if(d.equals(target)){
+                pile.remove(d);
+                return this;
+            }
         return this;
     }
     public String toString() {

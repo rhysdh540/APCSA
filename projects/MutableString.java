@@ -1,5 +1,6 @@
 import java.util.Set;
 
+@SuppressWarnings("unused")
 public class MutableString {
     private String data;
 
