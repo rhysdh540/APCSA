@@ -1,3 +1,5 @@
+package dev.rdh.apcsa.util;
+
 import java.util.Set;
 
 @SuppressWarnings("unused")
@@ -23,7 +25,7 @@ public class MutableString {
         return data;
     }
     public <T> MutableString append(T t) {
-        Set<Class<?>> classes = Set.of(
+        final Set<Class<?>> classes = Set.of(
                 Byte.class,
                 Short.class,
                 Integer.class,

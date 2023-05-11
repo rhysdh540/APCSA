@@ -1,3 +1,5 @@
+package dev.rdh.apcsa.excercise;
+
 @SuppressWarnings("unused")
 public class Domino {
     /* FIELDS */
@@ -147,7 +149,7 @@ public class Domino {
         Integer.compare(thisSmall, otherSmall);
     }
     public int compareToWeight(Domino other){
-        throw new RuntimeException(new NoSuchMethodException("This didn't happen. ඞ"));
+        return Integer.compare(this.bottom, other.top);
     }
     public boolean canConnect(Domino other){
         return top == other.top || top == other.bottom || bottom == other.top || bottom == other.bottom;

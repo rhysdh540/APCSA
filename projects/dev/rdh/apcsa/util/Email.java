@@ -1,3 +1,5 @@
+package dev.rdh.apcsa.util;
+
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -49,7 +51,7 @@ public class Email {
         this(sender, senderPassword, new String[]{recipient}, subject, body);
     }
     public Email(String recipient, String subject, String body){
-        this("rhys_dehaan@ryecountryday.org", SECRETDONOTCOMMITTOGITHUB.SCHOOL_PASSWORD, recipient, subject, body);
+        this("rhys_dehaan@ryecountryday.org", VERYSECRETDONOTCOMMITTOGITHUB.SCHOOL_PASSWORD, recipient, subject, body);
     }
 
     public void addRecipient(String recipient){

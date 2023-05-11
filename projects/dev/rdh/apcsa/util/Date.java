@@ -1,3 +1,5 @@
+package dev.rdh.apcsa.util;
+
 import lombok.*;
 
 /**
@@ -39,9 +41,9 @@ public class Date {
     }
     /**
      * Creates a new Date object with the specified values:
-     * @param newDay the day for the new Date.
-     * @param newMonth the month for the new Date.
-     * @param newYear the year for the new Date.
+     * @param day the day for the new Date.
+     * @param month the month for the new Date.
+     * @param year the year for the new Date.
      */
     public Date(int day, int month, int year) {
         this(day, month, year, true);
@@ -60,7 +62,7 @@ public class Date {
         int b = Integer.parseInt(date.substring(0,date.indexOf("/")));
         day = system ? a : b;
         month = system ? b : a;
-        year = Integer.parseInt(date.substring(date.lastIndexOf("/")+1, date.length()));
+        year = Integer.parseInt(date.substring(date.lastIndexOf("/")+1));
         fixOverflow();
     }
 
@@ -85,7 +87,6 @@ public class Date {
 
     /* GETTERS AND SETTERS (the ones that lombok can't do) */
     public void toggleSystem() {system = !system;}
-    public void setSystem(boolean newSystem) {system = newSystem;}
     public boolean getSystem() {return system;}
     public String getMonthAsString(){
         return switch (month){

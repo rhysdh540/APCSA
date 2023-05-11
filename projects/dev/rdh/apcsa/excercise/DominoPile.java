@@ -1,10 +1,13 @@
+package dev.rdh.apcsa.excercise;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @SuppressWarnings("unused")
 public class DominoPile {
     private ArrayList<Domino> pile = new ArrayList<>();
-    public DominoPile(){}
-    public void newStack6() {
+    public DominoPile newStack6() {
         pile = new ArrayList<>();
         for(int i = 0; i < 7; i++){
             for(int j = 0; j < 7; j++){
@@ -13,15 +16,17 @@ public class DominoPile {
                     pile.add(test.flip());
             }
         }
+        return this;
     }
-    public void shuffle() {
+    public DominoPile shuffle() {
         ArrayList<Domino> shuffled = new ArrayList<>();
         while(!pile.isEmpty()){
             int rand = (int)(Math.random() * (pile.size()-1));
-            Domino d = pile.get(rand);
-            shuffled.add(d);
+            shuffled.add(pile.get(rand));
+            pile.remove(rand);
         }
         pile = shuffled;
+        return this;
     }
     // extra stuff
     public DominoPile add(Domino d) {
@@ -42,5 +47,11 @@ public class DominoPile {
     }
     public String toString() {
         return pile.toString();
+    }
+    public Domino[] toArray() {
+        return pile.toArray(new Domino[0]);
+    }
+    public List<Domino> asList() {
+        return Arrays.asList(pile.toArray(new Domino[0]));
     }
 }

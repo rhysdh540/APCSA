@@ -1,9 +1,12 @@
+package dev.rdh.apcsa.excercise;
+
 import java.util.Scanner;
 import java.util.Formatter;
-class randomWalk {
+
+public class RandomWalk {
   public static void run() {
     System.out.println("\033[?25l\033[2J\033[H\033[34;1;4mRandom Walk Program\n\033[0m");
-    /* this is a lot to take in, but it's just a bunch of formatting
+    /* formatting time yay
      * \033[?25l hides the cursor
      * \033[2J clears the screen
      * \033[H moves the cursor to the top left
@@ -12,7 +15,7 @@ class randomWalk {
      */
     Scanner sc = new Scanner(System.in);
     System.out.print("How many tests would you like to run? \033[?25h");
-    long tests=-1;
+    double tests=-1;
     String placeholder = "";
     /* error handling yay */
     while(tests==-1){
@@ -27,7 +30,8 @@ class randomWalk {
         sc = new Scanner(System.in);
       }
     }
-    System.out.println("\033[2J\033[H\033[34;1;4mRandom Walk Program\n\033[0m\nRunning tests...");
+    Formatter f = new Formatter().format("%,d", (int)tests);
+    System.out.println("\033[2J\033[H\033[34;1;4mRandom Walk Program\n\033[0m\nRunning " + f + " tests...");
 
     /* logic */
     double avg = 0.0;
@@ -48,10 +52,7 @@ class randomWalk {
     timePassed -=mins*60;
     String plural = (mins==1) ? "" : "s";
     String minDisplay = (mins==0) ? "" : mins + " minute" + plural + " and ";
-    Formatter f = new Formatter();
-    f.format("%,d", tests);
-    
-    System.out.print("\033[1;35mTests Complete\n\033[0mTook " + minDisplay + timePassed + " seconds.\nResults:\n\n" + f + " tests run.\nTests averaged "
+    System.out.print("\033[1;35mTests Complete\n\033[0mTook " + minDisplay + (minDisplay.equals("") ? timePassed : ((int)timePassed)) + " seconds.\nResults:\n\n" + f + " tests run.\nTests averaged "
     + (Math.round(avg*10000)/10000.0) + " steps per run.\nThe greatest number of steps taken in a single test was " + greatest + ".\033[?25h\n\n");
   }
 
@@ -67,16 +68,16 @@ class randomWalk {
     }
     return steps;
   }
-  static long parseInputNum(String str){ // todo: make this work with decimals
+  static double parseInputNum(String str){
     if(str.length()==1)
-      return Long.parseLong(str);
-    long num = Long.parseLong(str.substring(0,str.length()-1));
+      return Double.parseDouble(str);
+    double num = Double.parseDouble(str.substring(0,str.length()-1));
     if(str.endsWith("k"))
       return num*1000;
     if(str.endsWith("m"))
       return num*1000000;
     if(str.endsWith("b"))
       return num*1000000000;
-    return Long.parseLong(str);
+    return Double.parseDouble(str);
   }
 }

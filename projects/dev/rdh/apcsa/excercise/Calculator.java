@@ -1,7 +1,7 @@
-/* REPLIT 8.2 */
+package dev.rdh.apcsa.excercise;/* REPLIT 8.2 */
 import java.util.Scanner;
 
-class calculator {
+class Calculator {
     public static void run() {
         String exp = "", operator = "", operand1 = "", operand2 = "";
         while (exp.equals("")) {
@@ -40,17 +40,14 @@ class calculator {
         } // end while
 
         System.out.print("The result is ");
-        switch (operator) {
-            case ("divide") -> System.out.println(Integer.parseInt(operand1) / Integer.parseInt(operand2));
-            case ("multiply") -> System.out.println(Integer.parseInt(operand1) * Integer.parseInt(operand2));
-            case ("add") -> System.out.println(Integer.parseInt(operand1) + Integer.parseInt(operand2));
-            case ("subtract") -> System.out.println(Integer.parseInt(operand1) - Integer.parseInt(operand2));
-            case ("modulo") -> System.out.println(Integer.parseInt(operand1) % Integer.parseInt(operand2));
-            case ("exponent") -> System.out.println((int)Math.pow(Integer.parseInt(operand1), Integer.parseInt(operand2)));
-        }
+        System.out.println(switch (operator) {
+            case ("divide") -> Integer.parseInt(operand1) / Integer.parseInt(operand2);
+            case ("multiply") -> Integer.parseInt(operand1) * Integer.parseInt(operand2);
+            case ("add") -> Integer.parseInt(operand1) + Integer.parseInt(operand2);
+            case ("subtract") -> Integer.parseInt(operand1) - Integer.parseInt(operand2);
+            case ("modulo") -> Integer.parseInt(operand1) % Integer.parseInt(operand2);
+            case ("exponent") -> (int)Math.pow(Integer.parseInt(operand1), Integer.parseInt(operand2));
+            default -> "Invalid input!";
+        });
     }
 }
-/*
-I added exponents too for a cool challenge
-and IntelliJ told me to put the weird arrow thingy instead of the regular ":" for the case (I don't really know what it is)
-*/
