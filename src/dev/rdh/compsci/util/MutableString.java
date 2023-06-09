@@ -1,4 +1,4 @@
-package dev.rdh.apcsa.util;
+package dev.rdh.compsci.util;
 
 import java.util.Set;
 

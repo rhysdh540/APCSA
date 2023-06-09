@@ -1,4 +1,4 @@
-package dev.rdh.apcsa.excercise;
+package dev.rdh.compsci.apcsa;
 
 import java.io.PrintStream;
 import java.util.Arrays;

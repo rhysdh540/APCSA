@@ -1,4 +1,4 @@
-package dev.rdh.apcsa.excercise.battleship;
+package dev.rdh.compsci.apcsa.battleship;
 
 public class Player {
     private Grid grid, otherGrid;

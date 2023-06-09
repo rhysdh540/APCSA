@@ -1,4 +1,4 @@
-package dev.rdh.apcsa.excercise.battleship;
+package dev.rdh.compsci.apcsa.battleship;
 
 public class Location {
     public static final int UNGUESSED = 0,

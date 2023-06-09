@@ -1,4 +1,4 @@
-package dev.rdh.apcsa.excercise;/* REPLIT 8.2 */
+package dev.rdh.compsci.apcsa;/* REPLIT 8.2 */
 import java.util.Scanner;
 
 class Calculator {

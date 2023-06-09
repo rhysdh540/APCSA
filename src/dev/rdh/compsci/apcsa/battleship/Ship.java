@@ -1,4 +1,4 @@
-package dev.rdh.apcsa.excercise.battleship;
+package dev.rdh.compsci.apcsa.battleship;
 
 public class Ship {
     public static final int UNSET = -1, HORIZONTAL = 0, VERTICAL = 1;

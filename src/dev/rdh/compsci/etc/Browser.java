@@ -1,4 +1,4 @@
-package dev.rdh.apcsa;
+package dev.rdh.compsci.etc;
 
 import java.awt.*;
 import java.awt.event.*;

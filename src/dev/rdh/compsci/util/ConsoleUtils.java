@@ -1,4 +1,4 @@
-package dev.rdh.apcsa.util;
+package dev.rdh.compsci.util;
 
 public class ConsoleUtils {
     public static final int BOLD = 1,

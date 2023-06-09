@@ -1,4 +1,4 @@
-package dev.rdh.apcsa.excercise;
+package dev.rdh.compsci.apcsa;
 
 /**
  * A class representing a playing card. Can represent all 52 cards in a standard deck, plus a joker.

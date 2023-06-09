@@ -1,8 +1,8 @@
-package dev.rdh.apcsa.excercise.battleship;
+package dev.rdh.compsci.apcsa.battleship;
 
-import dev.rdh.apcsa.util.ConsoleUtils;
+import dev.rdh.compsci.util.ConsoleUtils;
 
-import static dev.rdh.apcsa.util.ConsoleUtils.*;
+import static dev.rdh.compsci.util.ConsoleUtils.*;
 
 public class Battleship {
     private char[] aToj = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j' };

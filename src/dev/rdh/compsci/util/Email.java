@@ -1,4 +1,4 @@
-package dev.rdh.apcsa.util;
+package dev.rdh.compsci.util;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

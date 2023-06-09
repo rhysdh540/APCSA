@@ -1,4 +1,4 @@
-package dev.rdh.apcsa.excercise;
+package dev.rdh.compsci.apcsa;
 
 import java.util.ArrayList;
 import java.util.Arrays;

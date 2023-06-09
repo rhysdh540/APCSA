@@ -1,9 +1,9 @@
-package dev.rdh.apcsa;
+package dev.rdh.compsci;
 
 import java.util.*;
 import java.io.PrintStream;
 
-import dev.rdh.apcsa.util.Meth;
+import dev.rdh.compsci.util.Meth;
 import lombok.experimental.*;
 
 /**
