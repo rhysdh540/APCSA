@@ -3,6 +3,7 @@ package dev.rdh.compsci.util;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.util.Arrays;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -64,7 +65,7 @@ public class Email {
         bcc = arrayAdd(bcc, recipient);
     }
     public static <T> T[] arrayAdd(T[] arr, T toAdd) {
-        T[] newArr = java.util.Arrays.copyOf(arr, arr.length + 1);
+        T[] newArr = Arrays.copyOf(arr, arr.length + 1);
         newArr[arr.length] = toAdd;
         return newArr;
     }
@@ -77,25 +78,28 @@ public class Email {
         System.out.println("Subject: \033[1m" + subject + "\033[0m");
         System.out.println("Body: \n" + body);
     }
-    public void send(boolean addSignature){
-        Session session = Session.getInstance(props, new Authenticator() {
+    public void send(String signature){
+        var session = Session.getInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(sender, senderPassword);
             }
         });
         try{
-            Message message = new MimeMessage(session);
+            var message = new MimeMessage(session);
             message.setFrom(new InternetAddress(sender));
             for(String recipient : recipients)
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-            for(String recipient : cc)
-                message.addRecipient(Message.RecipientType.CC, new InternetAddress(recipient));
-            for(String recipient : bcc)
-                message.addRecipient(Message.RecipientType.BCC, new InternetAddress(recipient));
+            for(String cc : cc)
+                message.addRecipient(Message.RecipientType.CC, new InternetAddress(cc));
+            for(String bcc : bcc)
+                message.addRecipient(Message.RecipientType.BCC, new InternetAddress(bcc));
             message.setSubject(subject);
-            message.setText(body + (addSignature ? "\n\n(This message was sent using a program written by Rhys de Haan. If there are any problems, please contact me at rhys_dehaan@ryecountyday.org.)" : ""));
+            message.setText(body + (signature == null ? "" : ("\n\n" + signature)));
             Transport.send(message);
         } catch (MessagingException e){ throw new RuntimeException(e); }
+    }
+    public void send(){
+        send(null);
     }
 }

@@ -1,4 +1,4 @@
-package dev.rdh.compsci.util;
+package dev.rdh.compsci.apcsa;
 
 import lombok.*;
 

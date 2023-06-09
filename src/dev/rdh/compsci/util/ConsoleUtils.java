@@ -33,9 +33,9 @@ public class ConsoleUtils {
 
     /**
      *
-     * @param code
-     * @param bright
-     * @return
+     * @param code the int code of the desired highlight color
+     * @param bright whether to make the color brighter (adds 60 to the code)
+     * @return a String that can be printed out to make text after it that specific highlight color
      */
     public static String highlight(int code, boolean bright) {
         return text(code + 10, bright);
@@ -76,6 +76,6 @@ public class ConsoleUtils {
     public static native int terminalWidth();
     public static native int terminalHeight();
     static {
-        System.load("/Users/rhys/coding/csa/APCSA/lib/libconsoleutils.dylib");
+        System.load(VERYSECRETDONOTCOMMITTOGITHUB.PATH_TO_CONSOLE_UTILS_DYLIB);
     }
 }
