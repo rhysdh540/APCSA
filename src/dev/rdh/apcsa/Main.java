@@ -3,7 +3,7 @@ package dev.rdh.apcsa;
 import java.util.*;
 import java.io.PrintStream;
 
-import dev.rdh.apcsa.excercise.battleship.Battleship;
+import dev.rdh.apcsa.util.Meth;
 import lombok.experimental.*;
 
 /**
@@ -14,6 +14,7 @@ public class Main {
     public PrintStream so = System.out;
     public Scanner sc = new Scanner(System.in);
     public void main(String...ඞ) {
-        new Battleship().run();
+        so.println(Meth.obfuscate("Hello, world!"));
+        so.println(new String(new byte[]{72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33}));
     }
 }

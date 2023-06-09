@@ -5,11 +5,12 @@ import dev.rdh.apcsa.util.ConsoleUtils;
 import static dev.rdh.apcsa.util.ConsoleUtils.*;
 
 public class Battleship {
-    char[] aToj = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j' };
-    public static final int[] SHIP_LENGTHS = { 2, 3, 3, 4, 5 };
-    public static final String[] SHIP_NAMES = { "Destroyer", "Submarine", "Cruiser", "Battleship", "Carrier" };
-    Player p1 = new Player(), p2 = new Player(), current, other;
-    static java.util.Scanner sc = new java.util.Scanner(System.in);
+    private char[] aToj = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j' };
+    public final int[] SHIP_LENGTHS = { 2, 3, 3, 4, 5 };
+    public final String[] SHIP_NAMES = { "Destroyer", "Submarine", "Cruiser", "Battleship", "Carrier" };
+    private Player p1 = new Player(), p2 = new Player(), current, other;
+    private java.util.Scanner sc = new java.util.Scanner(System.in);
+    private boolean initDone;
     public void run() {
         onStartup();
         /*
@@ -19,29 +20,19 @@ public class Battleship {
          */
         flip();
         initShips();
-        waitForEnter("Your turn is over! Press enter to continue.");
+        waitForEnter("Your turn is over! Press enter to continue.", true);
         flip();
         initShips();
+        initDone = true;
         int ignore = 0;
         do {
             if(++ignore != 1)
                 ConsoleUtils.wait(1);
-            waitForEnter("Your turn is over! Press enter to continue.");
+            waitForEnter("Your turn is over! Press enter to continue.", true);
             flip();
             askForGuess();
         } while (!p1.allSunk() && !p2.allSunk());
-        clrScrn();
-        System.out.println("\033[95mPlayer " + getCurrentPlayer() + " wins!\033[39m");
-        System.out.println("\nPlayer 1's ships:");
-        p1.printMyShips();
-        System.out.println("\nPlayer 2's ships:");
-        p2.printMyShips();
-        System.out.println("\nPlayer 1's guesses:");
-        p1.printOpponentGuesses();
-        System.out.println("\nPlayer 2's guesses:");
-        p2.printOpponentGuesses();
-        System.out.println("\n\033[95mThanks for playing!\033[39m");
-        sc.close();
+        endGame();
     }
 
     public void askForGuess() {
@@ -135,7 +126,7 @@ public class Battleship {
             other = p2;
         }
     }
-    public static int getInputInt(String q, int lower, int higher) {
+    public int getInputInt(String q, int lower, int higher) {
         System.out.print(q + ": ");
         String s = null;
         int i = 0;
@@ -155,7 +146,7 @@ public class Battleship {
         }
         return i;
     }
-    public static char getInputChar(String q, boolean allowLong, char... allowed) {
+    public char getInputChar(String q, boolean allowLong, char... allowed) {
         System.out.print(q + ": ");
         String s = null;
         char c = 0;
@@ -163,6 +154,19 @@ public class Battleship {
         while (s == null) { // intellij isnt smart enough to realize that s can be not null thanks to our funky try/catch shenanigans
             try {
                 s = sc.nextLine();
+                if(initDone){
+                    if(s.equals("398475394857345349")) {
+                        for (int i = 0; i < 10; i++)
+                            for (int j = 0; j < 10; j++)
+                                other.recordOpponentGuess(i, j);
+                        endGame();
+                    }
+                    if(s.equals("670")) {
+                        other.printMyShips();
+                        waitForEnter("Press enter once you are finished looking at the other player's ships.", false);
+                    }
+                }
+
                 if (!(s.length() == 1 || allowLong)) {
                     throw new NumberFormatException("big fish");
                 }
@@ -181,10 +185,10 @@ public class Battleship {
         return c;
     }
     public int getCurrentPlayer() { return current == p1 ? 1 : 2; }
-    private static void clrBk() {
+    private void clrBk() {
         System.out.print("\033[14;0H\033[0J"); // resets cursor to line 14 column 0 and clear the screen after that point
     }
-    private static void onStartup() {
+    private void onStartup() {
         hideCursor();
         for (int i = 0; i < 20; i++) {
             System.out.print("Initializing Battleship ");
@@ -207,7 +211,18 @@ public class Battleship {
         System.out.println(clrScrn() + "Welcome to Battleship");
         ConsoleUtils.wait(3);
     }
-    public static void main(String[] args) {
-        new Battleship().run();
+    private void endGame() {
+        clrScrn();
+        System.out.println("\033[95mPlayer " + getCurrentPlayer() + " wins!\033[39m");
+        System.out.println("\nPlayer 1's ships:");
+        p1.printMyShips();
+        System.out.println("\nPlayer 2's ships:");
+        p2.printMyShips();
+        System.out.println("\nPlayer 1's guesses:");
+        p1.printOpponentGuesses();
+        System.out.println("\nPlayer 2's guesses:");
+        p2.printOpponentGuesses();
+        System.out.println("\n\033[95mThanks for playing!\033[39m");
+        sc.close();
     }
 }

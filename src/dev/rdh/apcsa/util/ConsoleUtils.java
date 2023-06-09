@@ -67,8 +67,8 @@ public class ConsoleUtils {
     public static void wait(int secs) {
         wait((double) secs);
     }
-    public static void waitForEnter(String message) {
-        System.out.println(clrScrn() + hideCursor() + message);
+    public static void waitForEnter(String message, boolean clear) {
+        System.out.println((clear ? clrScrn() : "") + hideCursor() + message);
         System.console().readPassword(); // wait for enter and don't echo anything else typed
         showCursor();
     }
