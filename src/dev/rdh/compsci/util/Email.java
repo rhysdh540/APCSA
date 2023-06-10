@@ -52,7 +52,7 @@ public class Email {
         this(sender, senderPassword, new String[]{recipient}, subject, body);
     }
     public Email(String recipient, String subject, String body){
-        this("rhys_dehaan@ryecountryday.org", VERYSECRETDONOTCOMMITTOGITHUB.SCHOOL_PASSWORD, recipient, subject, body);
+        this("rhys_dehaan@ryecountryday.org", Secrets.SCHOOL_PASSWORD, recipient, subject, body);
     }
 
     public void addRecipient(String recipient){

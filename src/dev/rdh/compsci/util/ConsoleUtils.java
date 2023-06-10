@@ -74,8 +74,9 @@ public class ConsoleUtils {
     }
 
     public static native int terminalWidth();
+
     public static native int terminalHeight();
     static {
-        System.load(VERYSECRETDONOTCOMMITTOGITHUB.PATH_TO_CONSOLE_UTILS_DYLIB);
+        System.load(Secrets.PATH_TO_CONSOLE_UTILS_DYLIB);
     }
 }
