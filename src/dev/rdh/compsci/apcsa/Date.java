@@ -1,43 +1,68 @@
 package dev.rdh.compsci.apcsa;
 
-import lombok.*;
-
 /**
  * ok so i didn't realize that there was already a Date class but i don't want to delete all this so yep here we go
  * also very javadocced (is that a word?)
  * i recommend viewing this using an ide/code editor that renders javadoc inline (like intellij)
  */
-@AllArgsConstructor
 public class Date {
     /**
      * The day of the month in the date.
      */
-    @Getter @Setter
     private int day;
+
+    public int getDay() {
+        return day;
+    }
+    public void setDay(int day) {
+        this.day = day;
+        fixOverflow();
+    }
 
     /**
      * The month of the year in the date, represented by 1-12 meaning January to December.
      */
-    @Getter @Setter
     private int month;
+
+    public int getMonth() {
+        return month;
+    }
+    public void setMonth(int month) {
+        this.month = month;
+        fixOverflow();
+    }
 
     /**
      * What year the Date is in.
      */
-    @Getter @Setter
     private int year;
+
+    public int getYear() {
+        return year;
+    }
+    public void setYear(int year) {
+        this.year = year;
+        fixOverflow();
+    }
 
     /**
      * Used when converting the Date to a String, tells whether to use DD/MM/YYYY (false) or MM/DD/YYYY (true).
      */
-    @Getter @Setter
     private boolean system;
+
+    public void setSystem(boolean system) {
+        this.system = system;
+    }
+    public boolean getSystem() {
+        return system;
+    }
+    public void toggleSystem() {system = !system;}
 
     /**
      * Creates a new Date object with the default date 1/1/0000.
      */
     public Date() {
-        this(1, 1, 0, true);
+        this(1, 1, 0);
     }
     /**
      * Creates a new Date object with the specified values:
@@ -49,12 +74,20 @@ public class Date {
         this(day, month, year, true);
     }
 
+    public Date(int day, int month, int year, boolean useAmericanDate) {
+        this.day = day;
+        this.month = month;
+        this.year = year;
+        system = useAmericanDate;
+        fixOverflow();
+    }
+
     /**
      * Creates a new Date object using the specified String.
      * @param date a String in the format DD/MM/YYYY or MM/DD/YYYY.
      * @param useAmericanDate whether to use DD/MM/YYYY (false) or MM/DD/YYYY (true).
      */
-    public Date(@NonNull String date, boolean useAmericanDate){
+    public Date(String date, boolean useAmericanDate){
         if(date.indexOf('/') == date.lastIndexOf('/'))
             throw new IllegalArgumentException("The date must be in the format DD/MM/YYYY or MM/DD/YYYY.");
         system = useAmericanDate;
@@ -70,7 +103,7 @@ public class Date {
      * Creates a new Date object using the specified String.
      * @param date a String in the format MM/DD/YYYY.
      */
-    public Date(@NonNull String date){
+    public Date(String date){
         this(date, true);
     }
 
@@ -78,16 +111,13 @@ public class Date {
      * Creates a new Date object using the specified Date.
      * @param date the Date to copy.
      */
-    public Date(@NonNull Date date){
+    public Date(Date date){
         day = date.getDay();
         month = date.getMonth();
         year = date.getYear();
         system = date.getSystem();
     }
 
-    /* GETTERS AND SETTERS (the ones that lombok can't do) */
-    public void toggleSystem() {system = !system;}
-    public boolean getSystem() {return system;}
     public String getMonthAsString(){
         return switch (month){
             case 1 -> "January";
@@ -109,7 +139,7 @@ public class Date {
      * Fixes the day and month if they are out of bounds.
      */
     public void fixOverflow(){
-        for(int i : new int[2]){
+        for(int i = 0; i < 2; i++){
             while(day > 31 &&(month==1||month==3||month==5||month==7||month==8||month==10||month==12)){
                 month += day/31;
                 day %=31;
@@ -162,7 +192,7 @@ public class Date {
      * @return the advanced date.
      * @see <a href="https://www.timeanddate.com/date/dateadd.html">Date Calculator</a>
      */
-    public static @NonNull Date advancedDate(Date d, int days, int months, int years) {
+    public static Date advancedDate(Date d, int days, int months, int years) {
         Date c = new Date(d);
         c.advance(days, months, years);
         return c;
@@ -181,7 +211,7 @@ public class Date {
      * @param d the Date to compare to.
      * @return whether the Dates are equal.
      */
-    public boolean equals(@NonNull Date d) {
+    public boolean equals(Date d) {
         return day == d.getDay() && month == d.getMonth() && year == d.getYear();
     }
     /**
@@ -190,7 +220,7 @@ public class Date {
      * @param useAmericanDate whether to use DD/MM/YYYY (false) or MM/DD/YYYY (true).
      * @return whether the Dates are equal.
      */
-    public boolean equals(@NonNull String d, boolean useAmericanDate) {
+    public boolean equals(String d, boolean useAmericanDate) {
         return equals(new Date(d, useAmericanDate));
     }
 
@@ -199,7 +229,7 @@ public class Date {
      * @param d the Date to compare to.
      * @return whether the Date is after the other Date.
      */
-    public boolean isAfter(@NonNull Date d) {
+    public boolean isAfter(Date d) {
         return year > d.getYear() || (year == d.getYear() && month > d.getMonth()) || (year == d.getYear() && month == d.getMonth() && day > d.getDay());
     }
     /**

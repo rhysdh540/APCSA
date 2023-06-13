@@ -3,18 +3,16 @@ package dev.rdh.compsci;
 import java.util.*;
 import java.io.PrintStream;
 
-import lombok.experimental.*;
-
 import static dev.rdh.compsci.util.ConsoleUtils.terminalWidth;
 
 /**
  * testing class
  */
-@SuppressWarnings({"unused", "NonAsciiCharacters"}) @UtilityClass
+@SuppressWarnings({"unused", "NonAsciiCharacters"})
 public class Main {
-    public PrintStream so = System.out;
-    public Scanner sc = new Scanner(System.in);
-    public void main(String...ඞ) {
+    public static PrintStream so = System.out;
+    public static Scanner sc = new Scanner(System.in);
+    public static void main(String...ඞ) {
         so.println(terminalWidth());
     }
 }

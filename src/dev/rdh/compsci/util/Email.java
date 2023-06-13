@@ -1,30 +1,73 @@
 package dev.rdh.compsci.util;
 
-import lombok.*;
-import lombok.experimental.FieldDefaults;
-
-import java.util.Arrays;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-@FieldDefaults(level = AccessLevel.PRIVATE) @SuppressWarnings({"unused", "FieldMayBeFinal"})
+import static dev.rdh.compsci.util.Meth.arrayAdd;
+
+@SuppressWarnings({"unused", "FieldMayBeFinal"})
 public class Email {
     Properties props = new Properties();
-    @Getter @Setter
-    String sender;
-    @Setter
-    String senderPassword;
-    @Getter @Setter
-    String[] recipients;
-    @Getter @Setter
-    String[] cc;
-    @Getter @Setter
-    String[] bcc;
-    @Getter @Setter
-    String subject;
-    @Getter @Setter
-    String body;
+    private String sender;
+
+    public String getSender(){
+        return sender;
+    }
+    public void setSender(String sender){
+        this.sender = sender;
+    }
+
+    private String senderPassword;
+
+    public void setSenderPassword(String senderPassword){
+        this.senderPassword = senderPassword;
+    }
+
+    private String[] recipients;
+
+    public String[] getRecipients(){
+        return recipients;
+    }
+    public void setRecipients(String[] recipients){
+        this.recipients = recipients;
+    }
+
+    private String[] cc;
+
+    public String[] getCC(){
+        return cc;
+    }
+    public void setCC(String[] cc){
+        this.cc = cc;
+    }
+
+    private String[] bcc;
+
+    public String[] getBCC(){
+        return bcc;
+    }
+    public void setBCC(String[] bcc){
+        this.bcc = bcc;
+    }
+
+    private String subject;
+
+    public String getSubject(){
+        return subject;
+    }
+    public void setSubject(String subject){
+        this.subject = subject;
+    }
+
+    private String body;
+
+    public String getBody(){
+        return body;
+    }
+    public void setBody(String body){
+        this.body = body;
+    }
 
     public Email(String host, boolean useAuth, int port, boolean useTLS, String sender, String senderPassword, String[] recipients, String[] cc, String[] bcc, String subject, String body){
         props.put("mail.smtp.host", host);
@@ -64,29 +107,24 @@ public class Email {
     public void addBCC(String recipient){
         bcc = arrayAdd(bcc, recipient);
     }
-    public static <T> T[] arrayAdd(T[] arr, T toAdd) {
-        T[] newArr = Arrays.copyOf(arr, arr.length + 1);
-        newArr[arr.length] = toAdd;
-        return newArr;
-    }
 
-    public void print(){
-        System.out.println("To: " + String.join(", ", recipients));
-        System.out.println("From: " + sender);
-        System.out.print(cc.length == 0 ? "" : ("CC: " + String.join(", ", cc) + "\n"));
-        System.out.print(bcc.length == 0 ? "" : ("BCC: " + String.join(", ", bcc) + "\n"));
-        System.out.println("Subject: \033[1m" + subject + "\033[0m");
-        System.out.println("Body: \n" + body);
+
+    public String toString(){
+        return ("To: " + String.join(", ", recipients)) + '\n' +
+               ("From: " + sender) + '\n' +
+               (cc.length == 0 ? "" : ("CC: " + String.join(", ", cc) + "\n")) + '\n' +
+               (bcc.length == 0 ? "" : ("BCC: " + String.join(", ", bcc) + "\n")) + '\n' +
+               ("Subject: \033[1m" + subject + "\033[0m") + '\n' +
+               ("Body: \n" + body);
     }
     public void send(String signature){
-        var session = Session.getInstance(props, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(sender, senderPassword);
-            }
-        });
         try{
-            var message = new MimeMessage(session);
+            var message = new MimeMessage(Session.getInstance(props, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(sender, senderPassword);
+                }
+            }));
             message.setFrom(new InternetAddress(sender));
             for(String recipient : recipients)
                 message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));

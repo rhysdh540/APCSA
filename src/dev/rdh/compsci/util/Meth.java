@@ -93,4 +93,9 @@ public class Meth { // short for methods (obviously)
         String bytes = Arrays.toString(input.getBytes());
         return "new String(new byte[]{" + bytes.substring(1, bytes.length() - 1) + "})";
     }
+    public static <T> T[] arrayAdd(T[] arr, T toAdd) {
+        T[] newArr = Arrays.copyOf(arr, arr.length + 1);
+        newArr[arr.length] = toAdd;
+        return newArr;
+    }
 }
