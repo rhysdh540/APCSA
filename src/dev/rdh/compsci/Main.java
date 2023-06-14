@@ -9,6 +9,6 @@ import dev.rdh.compsci.at1.ch0.MonteCarlo;
 @SuppressWarnings({"unused", "NonAsciiCharacters"})
 public class Main {
     public static void main(String...ඞ) {
-        MonteCarlo.run(false);
+        MonteCarlo.runIndef();
     }
 }
