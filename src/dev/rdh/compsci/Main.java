@@ -1,6 +1,6 @@
 package dev.rdh.compsci;
 
-import dev.rdh.compsci.at1.ch0.MonteCarlo;
+import dev.rdh.compsci.at1.ch0.PayrollCalculator;
 
 
 /**
@@ -9,6 +9,6 @@ import dev.rdh.compsci.at1.ch0.MonteCarlo;
 @SuppressWarnings({"unused", "NonAsciiCharacters"})
 public class Main {
     public static void main(String...ඞ) {
-        MonteCarlo.runIndef();
+        PayrollCalculator.run("/Users/rhys/Desktop/input.txt", "/Users/rhys/Desktop/output.txt");
     }
 }
