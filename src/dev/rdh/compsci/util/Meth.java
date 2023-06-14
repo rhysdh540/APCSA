@@ -98,4 +98,13 @@ public class Meth { // short for methods (obviously)
         newArr[arr.length] = toAdd;
         return newArr;
     }
+
+    /**
+     * Returns the hashcode of an object, or 0 if the object is null.
+     * @param o the object to get the hashcode of
+     * @return the hashcode of the object, or 0 if the object is null
+     */
+    public static int nullHash(Object o) {
+        return o == null ? 0 : o.hashCode();
+    }
 }

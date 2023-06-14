@@ -1,9 +1,9 @@
 package dev.rdh.compsci;
 
+import dev.rdh.compsci.at1.ch0.MonteCarlo;
+
 import java.util.*;
 import java.io.PrintStream;
-
-import static dev.rdh.compsci.util.ConsoleUtils.terminalWidth;
 
 /**
  * testing class
@@ -13,6 +13,6 @@ public class Main {
     public static PrintStream so = System.out;
     public static Scanner sc = new Scanner(System.in);
     public static void main(String...ඞ) {
-        so.println(terminalWidth());
+        MonteCarlo.run();
     }
 }

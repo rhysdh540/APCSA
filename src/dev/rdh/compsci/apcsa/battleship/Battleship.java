@@ -55,9 +55,7 @@ public class Battleship {
         }
     }
     public void initShips() {
-        clrScrn();
-        showCursor();
-        System.out.println("Hello, Player " + getCurrentPlayer());
+        System.out.println(clrScrn() + showCursor() + "Hello, Player " + getCurrentPlayer());
         current.printMyShips();
         int thisCount = 0;
         shipLoop: for(int i = 0; i < 5; i++) {
