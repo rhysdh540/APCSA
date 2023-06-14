@@ -1,8 +1,6 @@
 package dev.rdh.compsci.at1.ch0;
 
 import java.util.Scanner;
-import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicLong;
 
 public class MonteCarlo {
 
