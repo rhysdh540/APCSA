@@ -3,7 +3,6 @@ package dev.rdh.compsci.at1.ch0;
 import java.util.Scanner;
 
 public class MonteCarlo {
-
 	/**
 	 * Not-quite-industrial-strength™ program to calculate π using the Monte Carlo method. Usually gets pretty close, up to 4 or 5 decimal places in my testing.
 	 * <p>For reference, π = 3.14159265358979323846264338327950... as far as I can remember.</p>
