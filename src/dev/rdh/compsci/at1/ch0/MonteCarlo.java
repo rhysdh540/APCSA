@@ -7,7 +7,7 @@ public class MonteCarlo {
 
 	/**
 	 * Simple™ program to calculate π using the Monte Carlo method. Requires Java 16.
-	 * <p>The biggest flaw with this is that the assignment requires me to store each coordinate. Because I elected to store them in an {@code ArrayList}, the JVM runs out of memory extremely quickly, and any value for the {@code iterations} variable above 60,000,000 (that i've tested) burns through the 4GB of RAM that I allocated to it extremely quickly.</p>&nbsp;
+	 * <p>The biggest flaw with this is that the assignment requires me to store each coordinate. Because I elected to store them in an {@code ArrayList}, the JVM runs out of memory extremely quickly, and any value for the {@code iterations} variable above 60,000,000 (that i've tested) burns through the 4GB of RAM that I allocated to it.</p>&nbsp;
 	 * @author Rhys de Haan
 	 */
 	public static void run() {
