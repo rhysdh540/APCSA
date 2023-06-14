@@ -1,5 +1,5 @@
 # APCSA
-random ap computer science projects
+random computer science projects
 
 not organized at all lol
 
