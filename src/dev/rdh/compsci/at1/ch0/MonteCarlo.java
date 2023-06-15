@@ -1,6 +1,8 @@
 package dev.rdh.compsci.at1.ch0;
 
+import java.util.Random;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class MonteCarlo {
 	/**
@@ -10,7 +12,7 @@ public class MonteCarlo {
 	 * @param followAssignment whether to follow the assigment strictly (print out all the points and store them in an array). Not doing this has the advantage of being faster and using less memory. Based on my testing, with this set to true, the maximum input is around 60 million, whereas with it set to false, I was able to run it with 100 billion iterations.
 	 * @author Rhys de Haan
 	 */
-	public static void run(boolean followAssignment) {
+	public static void runNum(boolean followAssignment) {
 		// setup
 		//noinspection DuplicatedCode
 		Scanner in = new Scanner(System.in);
@@ -43,7 +45,7 @@ public class MonteCarlo {
 		long iterations = 0;
 
 		// get input
-		while(!input.matches("\\d+|\\d+(\\.\\d+)?[kmb]")){ // regex to check if the input is a number or a number followed by a k, m, or b
+		while(!input.matches("\\d+|\\d+(\\.\\d+)?[kmbtqsonduezy]")){ // regex to check if the input is a number or a number followed by a k, m, or b
 			System.out.print("\r\033[1A\033[2K" + "Enter the number of iterations to run: ");
 			input = in.nextLine();
 			try {
@@ -72,10 +74,11 @@ public class MonteCarlo {
 			}
 		} else {
 			long startTime = System.nanoTime();
+			Random random = new Random();
 			for (long j = 0; j < iterations; j++) {
-				double x = 2 * Math.random() - 1;
-				double y = 2 * Math.random() - 1;
-				if (Math.sqrt(x * x + y * y) <= 1)
+				double x = 2 * random.nextDouble() - 1;
+				double y = 2 * random.nextDouble() - 1;
+				if (x * x + y * y <= 1)  // Compare squared distance
 					numInCircle++;
 			}
 			System.out.println("Time taken: " + (System.nanoTime() - startTime) / 1e9 + " seconds");
@@ -87,7 +90,7 @@ public class MonteCarlo {
 		Runtime.getRuntime().removeShutdownHook(hook); // remove the shutdown hook so that the program can exit without waiting for the user to press enter
 		if (in.nextLine().toLowerCase().startsWith("y")) {
 			System.out.print("\033[0;0H\033[J");
-			run(followAssignment);
+			runNum(followAssignment);
 		}
 
 		in.close();
@@ -142,12 +145,12 @@ public class MonteCarlo {
 		System.out.print("\033[?25l");
 		long numInCircle = 0;
 		long iterations = 0;
-
+		Random random = new Random();
 		while(true) {
 			iterations++;
-			double x = 2 * Math.random() - 1;
-			double y = 2 * Math.random() - 1;
-			if (Math.sqrt(x * x + y * y) <= 1)
+			double x = 2 * random.nextDouble() - 1;
+			double y = 2 * random.nextDouble() - 1;
+			if (x * x + y * y <= 1)  // Compare squared distance
 				numInCircle++;
 
 			if(iterations % 1e9 == 0) {
@@ -159,5 +162,15 @@ public class MonteCarlo {
 		Runtime.getRuntime().removeShutdownHook(hook);
 		in.close();
 		System.out.println("\033[?25h\033[?1049lFinished!");
+	}
+
+	public static void run() {
+		System.out.print("Run indefinitely? (y/n) ");
+		Scanner in = new Scanner(System.in);
+		if(in.nextLine().toLowerCase().startsWith("y")) runIndef();
+		else{
+			System.out.print("Strictly follow assignment? (y/n) ");
+			runNum(in.nextLine().toLowerCase().startsWith("y"));
+		}
 	}
 }
