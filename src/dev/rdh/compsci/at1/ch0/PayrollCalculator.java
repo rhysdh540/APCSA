@@ -21,6 +21,7 @@ import java.util.Scanner;
  */
 public class PayrollCalculator {
 	public static void run(File input, File output) {
+		// setup input
 		Scanner sc;
 		try{
 			sc = new Scanner(input);
@@ -28,11 +29,13 @@ public class PayrollCalculator {
 			throw new RuntimeException(e);
 		}
 
+		// read input
 		List<String> lines = new ArrayList<>();
 		while(sc.hasNext())
 			lines.add(sc.nextLine());
 		sc.close();
 
+		// setup output
 		if(!output.exists()) {
 			output.getParentFile().mkdirs();
 			try {
@@ -48,6 +51,7 @@ public class PayrollCalculator {
 			throw new RuntimeException(e);
 		}
 
+		// process input and write output
 		for(String line : lines) {
 			if(line.startsWith("#") || line.startsWith("//")) continue; // ignore comments
 			String[] fields = line.substring(0, line.length()-1).split("; ");
@@ -60,6 +64,12 @@ public class PayrollCalculator {
 			out.println(id + "; " + name + "; " + new Formatter().format("%.2f", total) + ";");
 		}
 	}
+
+	/**
+	 * {@link #run(File, File)} but strings instead of files
+	 * @param input path to input file
+	 * @param output path to output file
+	 */
 	public static void run(String input, String output) {
 		run(new File(input), new File(output));
 	}
