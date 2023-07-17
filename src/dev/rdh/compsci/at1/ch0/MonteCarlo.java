@@ -3,6 +3,7 @@ package dev.rdh.compsci.at1.ch0;
 import java.awt.*;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.SplittableRandom;
 import java.util.stream.IntStream;
 
 public class MonteCarlo {
@@ -75,7 +76,7 @@ public class MonteCarlo {
 			}
 		} else {
 			long startTime = System.nanoTime();
-			Random random = new Random();
+			SplittableRandom random = new SplittableRandom(); // faster than Math.random() and Random
 			for (long j = 0; j < iterations; j++) {
 				double x = 2 * random.nextDouble() - 1;
 				double y = 2 * random.nextDouble() - 1;
@@ -127,13 +128,8 @@ public class MonteCarlo {
 
 		Thread hook = new Thread(() -> {
 			try {
-				// console() returns null in the intellij integrated terminal
-				if(System.console() == null) {
-					System.out.print("Press enter to exit");
-					in.nextLine();
-				} else {
-					System.console().readPassword("Press enter to exit");
-				}
+				System.out.print("Press enter to exit");
+				in.nextLine();
 				in.close();
 				System.out.println("\033[?25h\033[?1049lFinished!");
 			} catch (Exception ignoreme){/*since when was _ a keyword*/}
@@ -160,7 +156,7 @@ public class MonteCarlo {
 				counter = 0;
 				System.out.println("\033[2A\033[Jπ ≈ " + 4 * (double) numInCircle / (billions * 1e9));
 				System.out.print("You have run " + billions + " billion times. Continue? (y/n) ");
-				if(in.nextLine().matches("")) break;
+				if(in.nextLine().matches("n|no")) break;
 			}
 		}
 		Runtime.getRuntime().removeShutdownHook(hook);
