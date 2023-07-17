@@ -82,18 +82,23 @@ public class Email {
         this.subject = subject;
         this.body = body;
     }
+
     public Email(String sender, String senderPassword, String[] recipients, String[] cc, String[] bcc, String subject, String body){
         this("smtp.gmail.com", true, 587, true, sender, senderPassword, recipients, cc, bcc, subject, body);
     }
+
     public Email(String sender, String senderPassword, String[] recipients, String[] cc, String subject, String body){
         this(sender, senderPassword, recipients, cc, new String[]{}, subject, body);
     }
+
     public Email(String sender, String senderPassword, String[] recipients, String subject, String body){
         this(sender, senderPassword, recipients, new String[]{}, subject, body);
     }
+
     public Email(String sender, String senderPassword, String recipient, String subject, String body){
         this(sender, senderPassword, new String[]{recipient}, subject, body);
     }
+
     public Email(String recipient, String subject, String body){
         this("rhys_dehaan@ryecountryday.org", Secrets.SCHOOL_PASSWORD, recipient, subject, body);
     }

@@ -18,5 +18,6 @@
     </orderEntry>
     <orderEntry type="library" name="sun.mail.javax" level="project" />
     <orderEntry type="library" name="consoleutils" level="project" />
+    <orderEntry type="library" name="googlecode.lanterna" level="project" />
   </component>
 </module>

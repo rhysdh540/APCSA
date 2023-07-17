@@ -131,8 +131,7 @@ public class Couple<T> extends Pair<T, T> implements Iterable<T> {
 
 		@Override
 		public T next() {
-			state++;
-			if (state == 1)
+			if (++state == 1)
 				return couple.first;
 			if (state == 2)
 				return couple.second;

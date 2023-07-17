@@ -1,5 +1,6 @@
 package dev.rdh.compsci.at1.ch0;
 
+import java.awt.*;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.stream.IntStream;
@@ -78,7 +79,8 @@ public class MonteCarlo {
 			for (long j = 0; j < iterations; j++) {
 				double x = 2 * random.nextDouble() - 1;
 				double y = 2 * random.nextDouble() - 1;
-				if (x * x + y * y <= 1)  // Compare squared distance
+
+				if (x * x + y * y <= 1) // no need to sqrt since 1^2 is still 1
 					numInCircle++;
 			}
 			System.out.println("Time taken: " + (System.nanoTime() - startTime) / 1e9 + " seconds");
@@ -96,6 +98,7 @@ public class MonteCarlo {
 		in.close();
 		System.out.println("\033[?25h\033[?1049lFinished!");
 	}
+
 	static double parseInputNum(String str) {
 		if(str.length() == 1) return Double.parseDouble(str);
 		double num = Double.parseDouble(str.substring(0, str.length() - 1));
@@ -119,10 +122,9 @@ public class MonteCarlo {
 	}
 
 	public static void runIndef() {
-		// setup
+		//noinspection DuplicatedCode
 		Scanner in = new Scanner(System.in);
 
-		// when the jvm ends (either if the program ends or if it runs out of memory), wait to exit until the user presses enter
 		Thread hook = new Thread(() -> {
 			try {
 				// console() returns null in the intellij integrated terminal
@@ -139,24 +141,26 @@ public class MonteCarlo {
 		Runtime.getRuntime().addShutdownHook(hook);
 
 		System.out.print("\033[?1049h\033[?25h");
-		System.out.println("\033[4;1mMonte Carlo\033[0m\n");
+		System.out.println("\033[4;1mMonte Carlo\033[0m\n\033[?25l");
 
-		// hide cursor
-		System.out.print("\033[?25l");
 		long numInCircle = 0;
-		long iterations = 0;
+		long counter = 0;
+		long billions = 0;
 		Random random = new Random();
 		while(true) {
-			iterations++;
+			counter++;
 			double x = 2 * random.nextDouble() - 1;
 			double y = 2 * random.nextDouble() - 1;
-			if (x * x + y * y <= 1)  // Compare squared distance
+			if (x * x + y * y <= 1)
 				numInCircle++;
 
-			if(iterations % 1e9 == 0) {
-				System.out.println("\033[2A\033[Jπ ≈ " + 4 * (double) numInCircle / iterations);
-				System.out.print("You have run " + (int)(iterations/1e9) + " billion times. Continue? (y/n) ");
-				if(in.nextLine().toLowerCase().startsWith("n")) break;
+			if(counter % 1e9 == 0) { // 1e9 = 1 billion
+				billions++;
+				Toolkit.getDefaultToolkit().beep();
+				counter = 0;
+				System.out.println("\033[2A\033[Jπ ≈ " + 4 * (double) numInCircle / (billions * 1e9));
+				System.out.print("You have run " + billions + " billion times. Continue? (y/n) ");
+				if(in.nextLine().matches("")) break;
 			}
 		}
 		Runtime.getRuntime().removeShutdownHook(hook);
@@ -164,7 +168,10 @@ public class MonteCarlo {
 		System.out.println("\033[?25h\033[?1049lFinished!");
 	}
 
-	public static void run() {
+	/**
+	 * driver method
+	 */
+	public static void main(String[] args) {
 		System.out.print("Run indefinitely? (y/n) ");
 		Scanner in = new Scanner(System.in);
 		if(in.nextLine().toLowerCase().startsWith("y")) runIndef();

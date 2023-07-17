@@ -1,11 +1,12 @@
 package dev.rdh.compsci.util;
 
 import org.jetbrains.annotations.NotNull;
+import sun.misc.Unsafe;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 /**
  * Helpful methods for things and stuff
@@ -26,13 +27,14 @@ public class Meth { // short for methods (obviously)
         // base cases
         if(step == 0)
             throw new IllegalArgumentException("you made step 0 lol");
-        if(!((step > 0 && start > end) || (step < 0 && start < end))) {
-            action.accept(start); // the thing actually happening
-            try {
-                forLoop(start + step, end, step, action); // loop iterating
-            } catch (StackOverflowError e) {
-                throw new IllegalStateException("Recursive for loop exceeded stack size. Ran " + (end - start) / step + " times.");
-            }
+        if((step > 0 && start > end) || (step < 0 && start < end))
+            return;
+
+        action.accept(start); // the thing actually happening
+        try {
+            forLoop(start + step, end, step, action); // loop iterating
+        } catch (StackOverflowError e) {
+            throw new IllegalStateException("Recursive for loop exceeded stack size. Ran " + (end - start) / step + " times.");
         }
     }
 
@@ -58,10 +60,11 @@ public class Meth { // short for methods (obviously)
      * @param action what to perform
      */
     private static <T> void forEach0(int index, T[] arr, Consumer<T> action) {
-        if(index<=arr.length) {
-            action.accept(arr[index]);
-            forEach0(index + 1, arr, action);
-        }
+        if(index > arr.length)
+            return;
+
+        action.accept(arr[index]);
+        forEach0(index + 1, arr, action);
     }
 
     /**
@@ -69,22 +72,24 @@ public class Meth { // short for methods (obviously)
      * Not recommended for infinite loops (will throw a {@code StackOverflowError})<br>
      * {@code while(condition) { ... }} is the same as {@code whileLoop(() -> condition, () -> { ... });}
      * <p>Please do note that all variables referenced in the lambda must be final or effectively final, so either use {@code new int[1]} or an {@code AtomicInteger} instead of an {@code int}.</p>
-     * <p>Suppliers are used because regular booleans are passed in as either true or false and cannot be recomputed every iteration of the loop.</p>
+     * <p>{@code BooleanSupplier}s are used because regular booleans are passed in as either true or false and cannot be recomputed every iteration of the loop.</p>
      * @param condition what to check before executing the action
      * @param action the action to perform
      */
-    public static void whileLoop(Supplier<Boolean> condition, Runnable action) {
-        if(condition.get()) {
-            action.run();
-            whileLoop(condition, action);
-        }
+    public static void whileLoop(BooleanSupplier condition, Runnable action) {
+        if(!condition.getAsBoolean())
+            return;
+
+        action.run();
+        whileLoop(condition, action);
     }
+
     public static int random(int start, int end) {
         return new Random().nextInt(start, end+1);
     }
 
     /**
-     * Takes and input and returns a string that can be used to recreate the input, in the form of a String constructed from a byte array.
+     * Takes an input and returns a string that can be used to recreate the input, in the form of a String constructed from a byte array.
      * <p>For example, if the input were, "Hello world!", the output would be:<br>{@code new String(new byte[]{72, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33})}</p>
      * @param input the string to obfuscate
      * @return the obfuscated string
@@ -93,6 +98,7 @@ public class Meth { // short for methods (obviously)
         String bytes = Arrays.toString(input.getBytes());
         return "new String(new byte[]{" + bytes.substring(1, bytes.length() - 1) + "})";
     }
+
     public static <T> T[] arrayAdd(T[] arr, T toAdd) {
         T[] newArr = Arrays.copyOf(arr, arr.length + 1);
         newArr[arr.length] = toAdd;
@@ -106,5 +112,11 @@ public class Meth { // short for methods (obviously)
      */
     public static int nullHash(Object o) {
         return o == null ? 0 : o.hashCode();
+    }
+
+    // ill figure out a way to crash the jvm sooner or later
+    public static void die() {
+        Unsafe unsafe = Unsafe.getUnsafe();
+        unsafe.putAddress(0, 0);
     }
 }
